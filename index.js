@@ -19,7 +19,7 @@ app.use(cors());
 // enable picture upload to backend file system
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'uploads/');
+        cb(null, 'uploads');
     },
     filename: function (req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname);
@@ -27,10 +27,12 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-app.post('/upload', upload.single('file'), (req, res) => {
+app.post('/api/upload', upload.single('file'), (req, res) => {
     const filename = req.file.filename;
     res.json({ filePath: `/uploads/${filename}` });
 });
+
+app.use("/uploads", express.static(path.join(__dirname,"./uploads")))
 
 // use the defined apis
 app.use(express.json());
