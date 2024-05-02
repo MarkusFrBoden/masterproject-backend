@@ -64,11 +64,18 @@ router.patch('/DmmById/:id', async (req, res) => {
 });
 
 // Delete multiple DMMS
-router.delete('/deleteMultipleDmms', async (req, res) => {
+router.post('/deleteMultipleDmms', async (req, res) => {
     const dmmIds = req.body.dmmIds;
+    
     if (!dmmIds || !Array.isArray(dmmIds)) {
         return res.status(400).json({ error: 'dmmIds is not a valid array.' });
     }
+
+    const areValidIds = dmmIds.every(id => mongoose.Types.ObjectId.isValid(id));
+    if (!areValidIds) {
+        return res.status(400).json({ error: 'One or more provided dmm IDs are not valid.' });
+    }
+
     try {
         const result = await DMM.deleteMany({ _id: { $in: dmmIds } });
         res.status(200).json(result);
