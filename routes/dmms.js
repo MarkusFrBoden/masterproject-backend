@@ -80,7 +80,7 @@ router.post('/deleteMultipleDmms', async (req, res) => {
         // Check the acronym for each DMM before deleting
         for (const id of dmmIds) {
             const dmm = await getDmmById(id);
-            if (dmm.acronym === 'BIM4VID' || dmm.acronym === 'EUPSO') {
+            if (dmm.akronym === 'BIM4VID' || dmm.akronym === 'EUPSO') {
                 return res.status(200).json({ invalidIds: true });
             }
         }
