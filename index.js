@@ -5,6 +5,7 @@ dotenv.config();
 const mongoose = require('mongoose');
 const cors = require('cors');
 const multer = require('multer');
+const path = require('path');
 
 const dmaRouter = require("./routes/dmas");
 const dmmRouter = require("./routes/dmms");
