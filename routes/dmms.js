@@ -76,8 +76,15 @@ router.post('/deleteMultipleDmms', async (req, res) => {
     if (!areValidIds) {
         return res.status(400).json({ error: 'One or more provided dmm IDs are not valid.' });
     }
-
     try {
+        // Check the acronym for each DMM before deleting
+        for (const id of dmmIds) {
+            const dmm = await getDmmById(id);
+            if (dmm.acronym === 'BIM4VID' || dmm.acronym === 'EUPSO') {
+                return res.status(200).json({ invalidIds: true });
+            }
+        }
+        // If all checks pass, delete the DMMS
         const result = await DMM.deleteMany({ _id: { $in: dmmIds } });
         res.status(200).json(result);
     } catch (error) {
@@ -85,5 +92,18 @@ router.post('/deleteMultipleDmms', async (req, res) => {
         res.status(500).json({ error: 'Could not delete dmms.' });
     }
 });
+
+// Function to get DMM by ID
+async function getDmmById(id) {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+        const dmm = await DMM.findById(id);
+        if (!dmm) {
+            throw new Error(`DMM document with ID ${id} not found.`);
+        }
+        return dmm;
+    } else {
+        throw new Error(`Not a valid DMM document ID: ${id}`);
+    }
+}
 
 module.exports = router;

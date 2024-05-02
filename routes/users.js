@@ -114,7 +114,7 @@ router.patch('/OrganizationDmaStatusById/:id', async (req, res) => {
     }
 });
 
-// Delete multiple organizations
+// Delete multiple organizations with users!
 router.post('/deleteMultipleOrganizations', async (req, res) => {
     const orgaNames = req.body.orgaNames;
     if (!orgaNames || !Array.isArray(orgaNames)) {
