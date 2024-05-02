@@ -34,9 +34,9 @@ app.post('/upload', upload.single('file'), (req, res) => {
 
 // use the defined apis
 app.use(express.json());
-app.use("/api/users", userRouter);
-app.use("/api/dmas", dmaRouter);
-app.use("/api/dmms", dmmRouter);
+app.use("/api", userRouter);
+app.use("/api", dmaRouter);
+app.use("/api", dmmRouter);
 app.use("/", (req, res) => {
     res.send('welcome to the server home page')
 })
