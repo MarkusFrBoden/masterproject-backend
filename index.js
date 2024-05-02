@@ -8,6 +8,9 @@ const app = express()
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 app.use('/', routes);
+app.use("/", (req, res) => {
+    res.send('welcome to the server home page')
+})
 
 // db connection
 let db
