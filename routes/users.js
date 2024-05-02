@@ -69,6 +69,7 @@ router.patch('/UserById/:id', async (req, res) => {
     }
 });
 
+// ---------------------------- Organization ----------------------------------
 // Get organization by name
 router.get('/OrganizationByName/:organizationName', async (req, res) => {
     try {
