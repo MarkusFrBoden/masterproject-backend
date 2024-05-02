@@ -11,7 +11,9 @@ const path = require('path');
 const userRouter = require("./routes/users");
 const postRouter = require("./routes/posts");
 const catRouter = require("./routes/categories"); */
+const dmaRouter = require("./routes/dmas");
 const dmmRouter = require("./routes/dmms");
+const userRouter = require("./routes/users");
 
 const MONGO_URL = process.env.API_URI;
 mongoose.connect(MONGO_URL)
@@ -43,6 +45,8 @@ app.use(express.json());
 app.use("/api/users", userRouter);
 app.use("/api/posts", postRouter);
 app.use("/api/categories", catRouter); */
+app.use("/api/users", userRouter);
+app.use("/api/dmas", dmaRouter);
 app.use("/api/dmms", dmmRouter);
 app.use("/", (req, res) => {
     res.send('welcome to the server home page')
