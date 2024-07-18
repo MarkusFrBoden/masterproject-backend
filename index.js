@@ -12,6 +12,7 @@ const dmmRouter = require("./routes/dmms");
 const userRouter = require("./routes/users");
 
 const MONGO_URL = process.env.API_URI;
+
 mongoose.connect(MONGO_URL)
     .then(() => console.log('database connection established'))
     .catch(err => console.log('error connecting', err))
@@ -44,5 +45,5 @@ app.use("/", (req, res) => {
     res.send('welcome to the server home page')
 })
 app.listen(process.env.PORT || 5000, () => {
-    console.log('backend running')
+    console.log('backend running - Port 5000')
 })
